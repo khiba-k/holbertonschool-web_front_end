@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-color: #161616;
+    color: #161616;
 }
 
 .visually-hidden {
@@ -15,5 +15,5 @@ body {
 }
 
 .section-tagline {
-    background-color: #D73953;
+    color: #D73953;
 }
