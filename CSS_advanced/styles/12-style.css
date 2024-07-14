@@ -19,7 +19,7 @@
     --line-height-big: 1.8;
     --section-header-align: center;
     --section-tagline-transform: uppercase;
-    --section-title-margin: 0px;
+    --section-title-margin: 0;
     --section-title-color: var(var(--color-black));
 }
 
