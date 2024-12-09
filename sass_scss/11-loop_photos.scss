@@ -1,0 +1,7 @@
+// Loop through photos
+@import "11-photos";
+@each $name in $list-name {
+  .photo-#{$name} {
+    background: imageUrl("photos/#{$name}.jpg");
+  }
+}
