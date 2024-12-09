@@ -1,8 +1,8 @@
 // Change color on hover
 
 button {
-  background-color: #ff0000;
+  color: #ff0000;
   &:hover {
-    background-color: #00ff00;
+    color: #00ff00;
   }
 }
