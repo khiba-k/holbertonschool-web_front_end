@@ -2,15 +2,12 @@
 $text-color: #3d3d3d;
 $bg-color: #6d6d6d;
 
-body {
-  color: $text-color;
-  background-color: $bg-color;
-}
-
+body,
 p {
   color: $text-color;
 }
 
+body,
 .h2 {
   background-color: $bg-color;
 }
