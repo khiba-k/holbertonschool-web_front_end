@@ -1,10 +1,10 @@
 // nested deeper
 
-*body {
+body {
   font-size: 14px;
   h1 {
     font-size: 16px;
-    .smaller {
+    &.smaller {
       font-size: 12px;
     }
   }
