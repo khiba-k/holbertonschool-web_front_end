@@ -734,7 +734,6 @@ ul.row {
     ============================= */
 
 .post-meta-list {
-  display: flex;
   flex-direction: column;
 }
 
