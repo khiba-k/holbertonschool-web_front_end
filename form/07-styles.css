@@ -972,7 +972,7 @@ textarea:valid:not(:placeholder-shown) {
 
 .form-search {
   display: block;
-  padding: 0.5rem 0;
+  padding: .5rem 0;
   position: relative;
 }
 
@@ -1010,7 +1010,7 @@ textarea:valid:not(:placeholder-shown) {
   position: relative;
   width: 15rem;
   z-index: 1;
-  border-bottom: 0.1rem solid var(--color-grey);
+  border-bottom: .1rem solid var(--color-grey);
   padding: 0;
   cursor: text;
   margin: 0 1rem;
