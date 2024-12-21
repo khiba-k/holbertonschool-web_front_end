@@ -372,6 +372,12 @@ ul.row {
 }
 
 @media (max-width: 767px) {
+
+  :root {
+    --section-padding: 5rem 1.5rem;
+    --section-body-padding: 2rem 0 0;
+  }
+  
   ul.row,
   .row {
     flex-direction: column;
