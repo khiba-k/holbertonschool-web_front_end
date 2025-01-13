@@ -46,7 +46,7 @@
               <button
                 data-toggle="modal"
                 data-target="#playModal"
-                class="btn btn-danger"
+                class="btn mx-1 offset-10 btn btn-danger"
               >
                 Play with
               </button>
@@ -112,8 +112,15 @@
       <div role="document" class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="exampleModalLabel" class="modal-title">Play with CodePen</h5>
-            <button type="button" data-dismiss="modal" aria-label="Close">
+            <h5 id="exampleModalLabel" class="modal-title font-weight-bold">
+              Play with CodePen
+            </h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -140,20 +147,26 @@
               <div class="form-group">
                 <h5 class="font-weight-bold">Connect</h5>
               </div>
-              <div class="form-group row align-items-center">
-                <label for="username">Username</label>
-                <div>
-                  <input type="text" id="username" />
+              <div class="form-group row">
+                <label class="col-2" for="username">Username</label>
+                <div class="col-10">
+                  <input class="w-100 form-control" type="text" id="username" />
                 </div>
               </div>
               <div class="form-group row">
-                <label for="password">Password</label>
-                <div>
-                  <input type="password" id="password" />
+                <label for="password" class="col-2">Password</label>
+                <div class="col-10">
+                  <input
+                    class="w-100 form-control"
+                    type="password"
+                    id="password"
+                  />
                 </div>
               </div>
-              <div class="form-group">
-                <button type="submit">Connect</button>
+              <div class="form-group row mx-1">
+                <button class="btn btn-danger offset-10" type="submit">
+                  Connect
+                </button>
               </div>
             </form>
           </div>
