@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 11</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script type="application/javascript">
+      function addPostRow(data) {
+        $("body").append(
+          `<p><span>Post created with id ${data["id"]}, title: ${data["title"]}, author: ${data["author"]}</span></p>`
+        );
+      }
+
+      function listPosts() {
+        $.get("http://localhost:3000/posts")
+          .done(function (content, status) {
+            if (status === "success") {
+              const contentLength = content.length;
+              for (let i = 0; i < contentLength; i++) {
+                addPostRow(content[i]);
+              }
+            } else {
+              alert("Client Side Error");
+            }
+          })
+          .fail(function (xhr, status, error) {
+            alert("Server Error: " + error);
+          });
+      }
+
+      function buildForm() {
+        let bookForm = $("<form></form>");
+        let authorInput =
+          '<div><label for="author">Author</label><input type="text" id="author"/></div>';
+        let titleInput =
+          '<div><label for="title">Title</label><textarea id="title"></textarea></div>';
+        let submitBtn = '<input type="submit" value="submit" id="yep"/>';
+
+        bookForm.on("submit", function (e) {
+          e.preventDefault();
+          sendForm();
+        });
+
+        bookForm.append(authorInput).append(titleInput).append(submitBtn);
+        $("body").append(bookForm);
+      }
+
+      function sendForm() {
+        let authorVal = $("#author").val();
+        let titleVal = $("#title").val();
+
+        $("body").after("<p>About to send the query to the API</p>");
+
+        const data = JSON.stringify({
+          title: titleVal,
+          author: authorVal,
+        });
+
+        $.post("http://localhost:3000/posts", data, function (content, status) {
+          if (status === "success") {
+            addPostRow(content);
+          } else {
+            alert("Error sending the POST query");
+          }
+        });
+      }
+
+      $(document).ready(function () {
+        listPosts();
+        buildForm();
+      });
+    </script>
+  </head>
+
+  <body></body>
+</html>
