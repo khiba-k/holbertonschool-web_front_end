@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <div>
+      <h1>Login to the website</h1>
+      <span
+        ><input
+          style="border: 1px solid gray; height: 26px"
+          id="firstname"
+          type="text"
+          placeholder="Firstname"
+      /></span>
+      <span
+        ><input
+          style="border: 1px solid gray; height: 26px"
+          id="email"
+          type="text"
+          placeholder="Email"
+      /></span>
+      <span
+        ><button
+          style="
+            background-color: white;
+            border: 1px solid gray;
+            border-radius: 5px;
+            height: 30px;
+            font-weight: 550;
+            font-size: 12px;
+          "
+          onclick="setCookies()"
+        >
+          Log me in
+        </button></span
+      >
+    </div>
+    <div>
+      <h1>Cookies</h1>
+      <span
+        ><button
+          style="
+            background-color: white;
+            border: 1px solid gray;
+            border-radius: 5px;
+            height: 30px;
+            font-weight: 550;
+            font-size: 12px;
+          "
+          onclick="showCookies()"
+        >
+          Show the cookies
+        </button></span
+      >
+    </div>
+    <script>
+      function setCookies() {
+        let firstName = document.getElementById("firstname").value;
+        let email = document.getElementById("email").value;
+
+        document.cookie = `firstname=${firstName}; Max-Age=864000; path=/`;
+        document.cookie = `email=${email}; Max-Age=864000; path=/`;
+      }
+
+      function showCookies() {
+        const cookieParagraph = document.createElement("p");
+        cookieParagraph.innerHTML = `Cookies: ${document.cookie}`;
+        document.body.appendChild(cookieParagraph);
+      }
+    </script>
+  </body>
+</html>
