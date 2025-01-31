@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <script>
+      const availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+
+      function addItemToCart(item) {
+        localStorage.setItem(item, true);
+        console.log(item);
+      }
+
+      const stockList = document.createElement("ul");
+
+      for (let i = 0; i < availableItems.length; i++) {
+        let stockItem = document.createElement("li");
+        stockItem.textContent = availableItems[i];
+        stockItem.addEventListener("click", function () {
+          addItemToCart(availableItems[i]);
+        });
+
+        stockList.appendChild(stockItem);
+      }
+
+      document.body.appendChild(stockList);
+    </script>
+  </body>
+</html>
