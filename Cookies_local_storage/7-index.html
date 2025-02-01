@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <script>
+      const availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+
+      //Add Item to cart(sessionstorage)
+      function addItemToCart(item) {
+        cart = {}
+        sessionStorage.setItem(item, true);
+      }
+
+      function getCartFromStorage() {
+        if (localStorage.length < 1) {
+            return null;
+        }
+        else {
+            const cartObj = {}
+            for(i = 0; i < sessionStorage.length; i++) {
+                let key = sessionStorage.key(i);
+                let value = sessionStorage.getItem(key);
+                console.log(key , value);
+                cartObj[key] = value;
+            }
+            console.log("cart: ", cartObj);
+        }
+      }
+
+      //Displays list of available items
+      function createStore() {
+        const stockList = document.createElement("ul");
+        document.body.appendChild(stockList);
+        for (let i = 0; i < availableItems.length; i++) {
+          let stockItem = document.createElement("li");
+          stockItem.textContent = availableItems[i];
+          stockItem.addEventListener("click", function () {
+            addItemToCart(availableItems[i]);
+          });
+
+          stockList.appendChild(stockItem);
+        }
+      }
+
+      function displayCart() {
+        if (sessionStorage.length < 1) {
+          return null;
+        } else {
+          let numOfItems = sessionStorage.length;
+          let message = `You previously had ${numOfItems} items in your cart`;
+          let itemsParagraph = document.createElement("p");
+          itemsParagraph.textContent = message;
+          document.body.appendChild(itemsParagraph);
+        }
+      }
+
+      try {
+        sessionStorage.setItem("__test__", "test");
+        sessionStorage.removeItem("__test__");
+
+        createStore();
+        displayCart();
+        getCartFromStorage();
+      } catch (e) {
+        alert(
+          "Sorry, your browser does not support Web storage. Try again with a better one."
+        );
+      }
+    </script>
+  </body>
+</html>
