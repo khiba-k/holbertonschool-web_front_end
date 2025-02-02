@@ -5,66 +5,138 @@
     <script>
       const availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
 
-      //Add Item to cart(sessionstorage)
-      function addItemToCart(item) {
-        cart = {}
-        sessionStorage.setItem(item, true);
-      }
+      // Check if sessionStorage is available
+      if (typeof Storage === "undefined") {
+        alert(
+          "Sorry, your browser does not support Web storage. Try again with a better one."
+        );
+      } else {
+        // Functions will go here
+        function addItemToCart(item) {
+          let cart = JSON.parse(sessionStorage.getItem("cart")) || {};
 
-      function getCartFromStorage() {
-        if (localStorage.length < 1) {
-            return null;
-        }
-        else {
-            const cartObj = {}
-            for(i = 0; i < sessionStorage.length; i++) {
-                let key = sessionStorage.key(i);
-                let value = sessionStorage.getItem(key);
-                console.log(key , value);
-                cartObj[key] = value;
-            }
-            console.log("cart: ", cartObj);
-        }
-      }
+          cart[item] = (cart[item] || 0) + 1;
 
-      //Displays list of available items
-      function createStore() {
-        const stockList = document.createElement("ul");
-        document.body.appendChild(stockList);
-        for (let i = 0; i < availableItems.length; i++) {
-          let stockItem = document.createElement("li");
-          stockItem.textContent = availableItems[i];
-          stockItem.addEventListener("click", function () {
-            addItemToCart(availableItems[i]);
+          sessionStorage.setItem("cart", JSON.stringify(cart));
+
+          displayCart();
+        }
+
+        function getCartFromStorage() {
+          let cart = sessionStorage.getItem("cart");
+
+          return cart ? JSON.parse(cart) : {};
+        }
+
+        function removeItemFromCart(item) {
+          let cart = JSON.parse(sessionStorage.getItem("cart")) || {};
+
+          if (cart[item]) {
+            delete cart[item];
+          }
+
+          sessionStorage.setItem("cart", JSON.stringify(cart));
+
+          displayCart();
+        }
+
+        function clearCart() {
+          sessionStorage.clear();
+
+          displayCart();
+        }
+
+        //Displays list of available items
+        function createStore() {
+          const heading = document.createElement("h2");
+          heading.textContent = "Available products:";
+          document.body.appendChild(heading);
+
+          const stockList = document.createElement("ul");
+          document.body.appendChild(stockList);
+
+          availableItems.forEach((item) => {
+            const stockItem = document.createElement("li");
+            stockItem.textContent = item;
+
+            stockItem.addEventListener("click", () => addItemToCart(item));
+
+            stockList.appendChild(stockItem);
           });
-
-          stockList.appendChild(stockItem);
         }
-      }
 
-      function displayCart() {
-        if (sessionStorage.length < 1) {
-          return null;
-        } else {
-          let numOfItems = sessionStorage.length;
-          let message = `You previously had ${numOfItems} items in your cart`;
-          let itemsParagraph = document.createElement("p");
-          itemsParagraph.textContent = message;
-          document.body.appendChild(itemsParagraph);
+        function displayCart() {
+          let existingCartSection = document.getElementById("cart-section");
+          if (existingCartSection) {
+            existingCartSection.remove();
+          }
+
+          const cartSection = document.createElement("div");
+          cartSection.id = "cart-section";
+
+          const heading = document.createElement("h2");
+          heading.textContent = "Your cart:";
+          cartSection.appendChild(heading);
+
+          const cartList = document.createElement("ul");
+
+          const cart = getCartFromStorage();
+
+          document.body.appendChild(cartSection);
+
+          updateCart();
         }
-      }
 
-      try {
-        sessionStorage.setItem("__test__", "test");
-        sessionStorage.removeItem("__test__");
+        function updateCart() {
+          let cartSection = document.getElementById("cart-section");
+
+          if (!cartSection) return;
+
+          let existingList = cartSection.querySelector("ul");
+          if (existingList) {
+            existingList.remove();
+          }
+
+          const cartList = document.createElement("ul");
+          const cart = getCartFromStorage();
+
+          if (Object.keys(cart).length === 0) {
+            const emptyMessage = document.createElement("li");
+            emptyMessage.textContent = "Your cart is empty.";
+            cartList.appendChild(emptyMessage);
+          } else {
+            const clearCartItem = document.createElement("li");
+            clearCartItem.textContent = "Clear my cart";
+            clearCartItem.style.cursor = "pointer";
+            clearCartItem.style.fontWeight = "bold";
+            clearCartItem.style.color = "red";
+            clearCartItem.addEventListener("click", clearCart);
+            cartList.appendChild(clearCartItem);
+
+            for (let item in cart) {
+              const listItem = document.createElement("li");
+              listItem.textContent = `${item} x ${cart[item]} `;
+
+              const removeButton = document.createElement("button");
+              removeButton.textContent = "(remove)";
+              removeButton.style.marginLeft = "10px";
+              removeButton.style.cursor = "pointer";
+
+              removeButton.addEventListener("click", () =>
+                removeItemFromCart(item)
+              );
+
+              listItem.appendChild(removeButton);
+              cartList.appendChild(listItem);
+            }
+          }
+
+          cartSection.appendChild(cartList);
+        }
 
         createStore();
         displayCart();
         getCartFromStorage();
-      } catch (e) {
-        alert(
-          "Sorry, your browser does not support Web storage. Try again with a better one."
-        );
       }
     </script>
   </body>
